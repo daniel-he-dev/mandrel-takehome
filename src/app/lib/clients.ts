@@ -7,6 +7,8 @@ type Client = {
   res: any;
 };
 
+var clients: Array<Client>;
+
 //During development, need to bind to global this as Next.js will reinitialize module imports https://github.com/vercel/next.js/discussions/48427#discussioncomment-10550280
 if (process.env.NODE_ENV === "production") {
   clients = [];
