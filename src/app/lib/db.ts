@@ -7,6 +7,7 @@ const pool = new Pool({
   host: process.env.POSTGRES_HOST ?? "localhost",
   port: Number(process.env.POSTGRES_PORT) ?? 5432,
   database: process.env.POSTGRES_DB,
+  ssl: true,
 });
 
 export const query = (text: string, params?: string[]) =>
