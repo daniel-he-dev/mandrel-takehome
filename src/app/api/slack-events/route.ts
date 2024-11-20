@@ -1,3 +1,4 @@
+import { sendMessageToClients } from "@/app/lib/clients";
 import { query } from "@/app/lib/db";
 import crypto from "crypto";
 import { NextRequest } from "next/server";
@@ -18,10 +19,20 @@ export async function POST(req: NextRequest) {
   }
 
   const payload = JSON.parse(body);
-  const { event } = payload;
+  const { challenge, event } = payload;
+  if (challenge)
+    return new Response(JSON.stringify({ challenge }), {
+      status: 200,
+    });
+
+  //send data to client side first
+  if (event) {
+    sendMessageToClients(JSON.stringify(event));
+  }
 
   if (event.type === "team_join") {
     const user = event.user;
+
     await query(
       `INSERT INTO users (slack_id, name, email, phone, image, timezone)
        VALUES ($1, $2, $3, $4, $5, $6)`,

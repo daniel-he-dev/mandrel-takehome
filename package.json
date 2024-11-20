@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
+    "express": "^4.21.1",
     "next": "15.0.3",
     "pg": "^8.13.1",
     "react": "19.0.0-rc-66855b96-20241106",
@@ -19,6 +20,7 @@
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/node": "^20",
     "@types/pg": "^8.11.10",
     "@types/react": "^18",
