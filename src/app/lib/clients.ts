@@ -39,3 +39,7 @@ export function sendMessageToClients(message: string): void {
 export function getClientsCount(): number {
   return clients.length;
 }
+
+setInterval(() => {
+  sendMessageToClients("keep-alive");
+}, 30000);
