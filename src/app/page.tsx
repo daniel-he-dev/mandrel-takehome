@@ -24,7 +24,7 @@ export default function UsersPage() {
         const data = JSON.parse(event.data);
 
         const newUser: SlackUser = {
-          ...data.user,
+          id: 0,
           slack_id: data.user.id,
           email: data.user.profile.email,
           phone: data.user.profile.phone,
