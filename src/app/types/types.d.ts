@@ -7,4 +7,7 @@ export interface SlackUser {
   image?: string;
   timezone?: string;
   updated_at: Date;
+  status_text?: string;
+  title?: string;
+  deleted: boolean;
 }

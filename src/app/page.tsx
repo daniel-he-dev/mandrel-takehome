@@ -31,6 +31,10 @@ export default function UsersPage() {
           name: data.user.real_name,
           image: data.user.profile.image_192,
           timezone: data.user.tz,
+          updated_at: new Date(),
+          status_text: data.user.profile.status_text,
+          title: data.user.profile.title,
+          deleted: data.user.deleted,
         };
 
         if (data.type === "team_join") {
@@ -38,11 +42,17 @@ export default function UsersPage() {
         }
 
         if (data.type === "user_change") {
-          setUsers((users) =>
-            users.map((oldUser) =>
-              oldUser.slack_id === newUser.slack_id ? newUser : oldUser
-            )
-          );
+          if (data.user.deleted) {
+            setUsers((users) =>
+              users.filter((user) => user.slack_id !== newUser.slack_id)
+            );
+          } else {
+            setUsers((users) =>
+              users.map((oldUser) =>
+                oldUser.slack_id === newUser.slack_id ? newUser : oldUser
+              )
+            );
+          }
         }
       } catch (error) {
         console.error(error);
@@ -53,25 +63,30 @@ export default function UsersPage() {
       eventSource.close();
     };
   }, []);
-
   return (
-    <div>
-      <h1>User List</h1>
-      <ul>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">User List</h1>
+      <ul className="space-y-4">
         {users.map((user) => (
-          <li key={user.slack_id}>
+          <li
+            key={user.slack_id}
+            className="p-4 border rounded-lg shadow-md flex items-center space-x-4"
+          >
             {user.image && (
               <Image
                 src={user.image}
                 alt={user.name ?? "Unknown user"}
                 width={50}
                 height={50}
+                className="rounded-full"
               />
             )}
-            <strong>Name:</strong> {user.name} <br />
-            <strong>Email:</strong> {user.email} <br />
-            <strong>Phone:</strong> {user.phone} <br />
-            <strong>Timezone:</strong> {user.timezone}
+            <div>
+              <p className="text-lg font-semibold">{user.name}</p>
+              <p className="text-sm text-gray-600">{user.email}</p>
+              <p className="text-sm text-gray-600">{user.status_text}</p>
+              <p className="text-sm text-gray-600">{user.title}</p>
+            </div>
           </li>
         ))}
       </ul>

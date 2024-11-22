@@ -17,10 +17,10 @@ export async function GET() {
 
     for (const user of users) {
       await query(
-        `INSERT INTO users (slack_id, name, email, phone, image, timezone)
-         VALUES ($1, $2, $3, $4, $5, $6)
+        `INSERT INTO users (slack_id, name, email, phone, image, timezone, status_text, title, deleted)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
          ON CONFLICT (slack_id) DO UPDATE
-         SET name = $2, email = $3, phone = $4, image = $5, timezone = $6, updated_at = NOW()`,
+         SET name = $2, email = $3, phone = $4, image = $5, timezone = $6, updated_at = NOW(), status_text = $7, title = $8, deleted = $9`,
         [
           user.id,
           user.real_name,
@@ -28,6 +28,9 @@ export async function GET() {
           user.profile.phone,
           user.profile.image_192,
           user.tz,
+          user.profile.status_text,
+          user.profile.title,
+          user.deleted,
         ]
       );
     }

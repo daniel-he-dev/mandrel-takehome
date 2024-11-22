@@ -8,6 +8,9 @@ CREATE TABLE users (
   phone VARCHAR(20),
   image TEXT,
   timezone VARCHAR(50),
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  status_text TEXT,
+  title TEXT,
+  deleted BOOLEAN DEFAULT FALSE
 );
 
