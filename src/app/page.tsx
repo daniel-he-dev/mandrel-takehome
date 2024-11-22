@@ -63,6 +63,7 @@ export default function UsersPage() {
       eventSource.close();
     };
   }, []);
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">User List</h1>
@@ -84,8 +85,10 @@ export default function UsersPage() {
             <div>
               <p className="text-lg font-semibold">{user.name}</p>
               <p className="text-sm text-gray-600">{user.email}</p>
+              <p className="text-sm text-gray-600">{user.phone}</p>
               <p className="text-sm text-gray-600">{user.status_text}</p>
               <p className="text-sm text-gray-600">{user.title}</p>
+              <p className="text-sm text-gray-600">{user.timezone}</p>
             </div>
           </li>
         ))}
